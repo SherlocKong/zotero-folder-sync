@@ -23,5 +23,13 @@ with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as arch
         info.compress_type = zipfile.ZIP_DEFLATED
         info.external_attr = 0o100644 << 16
         archive.writestr(info, file.read_bytes())
-(dist / "SHA256SUMS.txt").write_text(hashlib.sha256(output.read_bytes()).hexdigest() + "  " + output.name + "\n")
+client = dist / f"folder-sync-cli-{manifest['version']}.zip"
+with zipfile.ZipFile(client, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
+    for filename in ("cli/folder-sync", "LICENSE"):
+        info = zipfile.ZipInfo(filename, date_time=(2026, 11, 11, 0, 0, 0))
+        info.compress_type = zipfile.ZIP_DEFLATED
+        info.external_attr = (0o100755 if filename.startswith("cli/") else 0o100644) << 16
+        archive.writestr(info, (root / filename).read_bytes())
+(dist / "SHA256SUMS.txt").write_text("".join(hashlib.sha256(file.read_bytes()).hexdigest() + "  " + file.name + "\n" for file in (output, client)))
 print(output)
+print(client)

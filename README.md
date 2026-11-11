@@ -48,6 +48,8 @@
 
 在“Agent 连接”中启用本地服务，并复制连接文件路径。服务默认关闭；每个 Profile 有自己的令牌与连接文件。
 
+从 [Releases](https://github.com/SherlocKong/zotero-folder-sync/releases) 下载并解压 CLI ZIP，或获取本仓库源码；在解压目录或仓库根目录执行以下命令。CLI 只依赖 Python 3.10+ 标准库。
+
 ```bash
 python3 cli/folder-sync --connection /path/to/connection.json doctor
 python3 cli/folder-sync --connection /path/to/connection.json rules
@@ -59,6 +61,8 @@ python3 cli/folder-sync --connection /path/to/connection.json cancel JOB_ID
 ```
 
 也可以通过 `FOLDER_SYNC_CONNECTION` 设置连接文件位置。CLI 只向 loopback 服务发送令牌，绕过 HTTP 代理，并区分成功、部分失败、取消和超时。
+
+配套的 [Build Research Knowledge Base skill](https://github.com/SherlocKong/build-research-knowledge-base) 负责知识库组织与证据追溯；插件负责目录到 Zotero 的映射。将规则配置为标准知识库模式后，可按其 `raw/papers` 约定配合使用。
 
 计划默认保存在当前 Profile 的插件私有状态目录，重启后可以重新核验执行；未完成任务标记为中断。执行时重新检查配置版本与文件状态。
 
