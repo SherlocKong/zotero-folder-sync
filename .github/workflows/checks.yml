@@ -1,0 +1,41 @@
+name: Checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            node: "22"
+            python: "3.10"
+          - os: macos-latest
+            node: "24"
+            python: "3.14"
+          - os: windows-latest
+            node: "24"
+            python: "3.14"
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          package-manager-cache: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Core and store checks
+        run: node --test tests/engine.test.cjs tests/store.test.cjs
+      - name: CLI checks
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Build allowlisted XPI
+        run: python scripts/build.py

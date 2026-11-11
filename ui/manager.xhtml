@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta charset="utf-8"/><title>Folder Sync</title>
+<style>
+body{font:14px system-ui;margin:20px;color:CanvasText;background:Canvas}button,input,select{font:inherit;padding:6px}button{cursor:pointer;margin:3px}table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:8px;border-bottom:1px solid #8885}td{word-break:break-word}fieldset{border:1px solid #8885;margin:16px 0;padding:14px}label{display:inline-block;margin:5px}input[type=text]{width:290px}select{max-width:420px}pre{white-space:pre-wrap;word-break:break-word;max-height:330px;overflow:auto;background:#8881;padding:12px}#message{padding:10px;min-height:20px}#details{display:none}.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px}h1{font-size:22px}small{display:block;margin:8px 0;color:#777}
+</style>
+<script src="manager.js" defer="defer"></script></head>
+<body>
+<h1>Folder Sync · 文件夹同步</h1>
+<p>PDF files stay in your selected folders; Zotero stores links. / PDF 保留原位，Zotero 保存链接。</p>
+<div class="toolbar"><button id="add">Add folder / 添加目录</button><button id="legacy">Import legacy settings / 导入旧配置</button><button id="preview">Preview enabled rules / 预览启用规则</button><button id="reload">Refresh / 刷新</button></div>
+<table><thead><tr><th>Enabled / 启用</th><th>Rule / 规则</th><th>Source / 源目录</th><th>Collection / 分类</th><th>Mode / 模式</th><th>Actions / 操作</th></tr></thead><tbody id="rules"></tbody></table>
+<fieldset id="details"><legend>Rule / 规则</legend>
+<input id="rule-id" type="hidden"/>
+<label>Name / 名称 <input id="name" type="text"/></label>
+<label>Source / 目录 <input id="source" type="text" readonly="readonly"/></label><button id="choose">Choose folder / 选择目录</button><br/>
+<label>Collection / 目标分类 <select id="target"></select></label>
+<label>Mode / 模式 <select id="mode"><option value="directory-tree">Folder tree / 普通目录树</option><option value="knowledge-base">Knowledge bases · raw/papers / 科研知识库</option></select></label><br/>
+<label>KB entry / 知识库入口 <select id="entry"><option value="project-tree">Discover below root / 从项目树发现</option><option value="knowledge-base">Root is one KB / 根本身是知识库</option></select></label>
+<label>Layout / 分类布局 <select id="layout"><option value="mirror">Mirror tree / 保留层级</option><option value="flat">One collection / 集中分类</option></select></label>
+<label><input id="empty" type="checkbox"/> Include empty folders / 包含空目录</label><br/>
+<label>Excluded directory names / 排除目录名 <input id="exclude" type="text" value="tmp,node_modules,__pycache__"/></label>
+<label><input id="recognize" type="checkbox"/> Retrieve PDF metadata via Zotero / 请求 Zotero 识别元数据</label>
+<small>Knowledge-base mode preserves the full raw/papers tree and empty nodes. / 标准知识库模式保留完整层级和空节点。</small>
+<button id="save">Save rule / 保存规则</button><button id="discard">Close / 关闭编辑</button>
+</fieldset>
+<div id="message" role="status"></div>
+<fieldset><legend>Preview and tasks / 预览与任务</legend>
+<button id="apply" disabled="disabled">Apply this preview / 执行当前预览</button><button id="cancel" disabled="disabled">Cancel task / 取消任务</button>
+<pre id="output">Add a folder, then preview. / 添加目录后生成预览。</pre></fieldset>
+<fieldset><legend>Agent connection / Agent 连接</legend>
+<button id="api">Enable local service / 启用本地服务</button><button id="api-off">Disable service / 关闭服务</button><pre id="connection"></pre>
+</fieldset>
+</body></html>

@@ -1,0 +1,19 @@
+{
+  "addons": {
+    "folder-sync@sherlockong.github.io": {
+      "updates": [
+        {
+          "version": "0.2.0-beta.1",
+          "update_link": "https://github.com/SherlocKong/zotero-folder-sync/releases/download/v0.2.0-beta.1/zotero-folder-sync-0.2.0-beta.1.xpi",
+          "update_hash": "sha256:03021081907659d3b71e6e023c5e86f92055e54bc839682a7e1a9e4e6e430464",
+          "applications": {
+            "zotero": {
+              "strict_min_version": "10.0",
+              "strict_max_version": "10.0.*"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
